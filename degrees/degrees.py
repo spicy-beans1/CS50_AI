@@ -130,7 +130,7 @@ def shortest_path(source, target):
         for action, state in neighbors_for_person(node.state): # returns a set of (move_id, persion_id)
             if not fronteir.contains_state(state) and state not in explored: #ibefore we add the neighbor we check the frontier to see if we have already seen them
                 child = Node(state=state, parent=node, action=action) # (neighbors person_id, current node, the movie that connected them)
-                fronteir.add(child) # add to que to be expored later
+                fronteir.add(child) # add to que to be expored later hello
         
 
 
