@@ -1,5 +1,6 @@
 import csv
 import sys
+from typing import Self
 
 from util import Node, StackFrontier, QueueFrontier
 
@@ -91,9 +92,46 @@ def shortest_path(source, target):
 
     If no possible path, returns None.
     """
+    #keep track of num of states explored
+    num_explored = 0
 
-    # TODO
-    raise NotImplementedError
+    # Initialize frontier to just the starting position, starting position is source
+    start_node = Node(state=source, parent=None, action=None)
+    fronteir = QueueFrontier()
+    fronteir.add(start_node)
+
+    #initialize an empty explored set
+    explored =set()
+
+    #keep loopiong until alsolution is found
+    while True:
+
+        #if nothing is in the fronteir
+        if fronteir.empty():
+            return None
+
+        #choose a node from the frontier 
+        node = fronteir.remove()
+        num_explored += 1
+
+        #if node is the goal, then there is a solution
+        if node.state == target:
+            path = [] 
+            while node.parent is not None:
+                path.append((node.action, node.state)) # (movie_id, person_id)
+                node = node.parent
+            path.reverse()
+            return path
+        
+        #mark node as expored
+        explored.add(node.state)
+
+        #add neighbors to fronteir
+        for action, state in neighbors_for_person(node.state): # returns a set of (move_id, persion_id)
+            if not fronteir.contains_state(state) and state not in explored: #ibefore we add the neighbor we check the frontier to see if we have already seen them
+                child = Node(state=state, parent=node, action=action) # (neighbors person_id, current node, the movie that connected them)
+                fronteir.add(child) # add to que to be expored later
+        
 
 
 def person_id_for_name(name):
