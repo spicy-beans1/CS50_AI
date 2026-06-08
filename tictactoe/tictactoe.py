@@ -79,9 +79,10 @@ def winner(board):
 
     #loop though rows and columns to find a 3 in a row
     #if vertical
-    for row in board:
-        for j in range(0-2)
-        if row==
+    for cell in board:
+        if row
+        if cell[0][j] == cell[1][j] ==cell[2][j] != EMPTY:
+            return row [0]
 
     #horizontal
     for row in board:
